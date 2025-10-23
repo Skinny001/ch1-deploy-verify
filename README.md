@@ -1,3 +1,7 @@
+"MyToken" at 0x5FbDB2315678afecb367f032d93F642f64180aa3
+reusing "MyNFT" at 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+
+
 <div align="left">
   <a href="https://lisk.com"><img alt="Lisk" src="./packages/nextjs/public/readme-banner.png" width="100%"></a>
 </div>
