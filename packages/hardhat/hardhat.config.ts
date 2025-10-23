@@ -34,7 +34,6 @@ const config: HardhatUserConfig = {
   defaultNetwork: "localhost",
   namedAccounts: {
     deployer: {
-      // By default, it will take the first Hardhat account as the deployer
       default: 0,
     },
   },
@@ -47,6 +46,12 @@ const config: HardhatUserConfig = {
         enabled: process.env.MAINNET_FORKING_ENABLED === "true",
       },
     },
+    liskSepolia: {
+      url: "https://rpc.sepolia-api.lisk.com",
+      accounts: [deployerPrivateKey],
+      chainId: 4202,
+    },
+
     mainnet: {
       url: `https://eth-mainnet.alchemyapi.io/v2/${providerApiKey}`,
       accounts: [deployerPrivateKey],
@@ -127,10 +132,7 @@ const config: HardhatUserConfig = {
       url: "https://sepolia.rpc.zora.energy",
       accounts: [deployerPrivateKey],
     },
-    liskSepolia: {
-      url: "https://rpc.sepolia-api.lisk.com",
-      accounts: [deployerPrivateKey],
-    },
+
     mode: {
       url: "https://mainnet.mode.network",
       accounts: [deployerPrivateKey],
@@ -140,9 +142,28 @@ const config: HardhatUserConfig = {
       accounts: [deployerPrivateKey],
     },
   },
-  // configuration for harhdat-verify plugin
+  // configuration for harhdat-verify plugin (merged)
   etherscan: {
-    apiKey: `${etherscanApiKey}`,
+    apiKey: {
+      // default API key for common networks
+      mainnet: etherscanApiKey,
+      sepolia: etherscanApiKey,
+      arbitrum: etherscanApiKey,
+      polygon: etherscanApiKey,
+      optimisticEthereum: etherscanApiKey,
+      // custom/blockscout-like explorer for liskSepolia
+      liskSepolia: process.env.ETHERSCAN_API_KEY || "YOUR_BLOCKSCOUT_API_KEY",
+    },
+    customChains: [
+      {
+        network: "liskSepolia",
+        chainId: 4202,
+        urls: {
+          apiURL: "https://sepolia-blockscout.lisk.com/api",
+          browserURL: "https://sepolia-blockscout.lisk.com",
+        },
+      },
+    ],
   },
   // configuration for etherscan-verify from hardhat-deploy plugin
   verify: {
