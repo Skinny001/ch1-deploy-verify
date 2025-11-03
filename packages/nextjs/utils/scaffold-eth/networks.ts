@@ -1,5 +1,5 @@
 import * as chains from "viem/chains";
-import { liskSepolia } from "~~/chains";
+import { liskSepoliaThirdweb as liskSepolia } from "~~/chains";
 import scaffoldConfig from "~~/scaffold.config";
 
 type ChainAttributes = {
